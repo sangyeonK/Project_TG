@@ -1,0 +1,540 @@
+{
+	"basePath": "/api",
+	"consumes": [
+		"application/x-www-form-urlencoded",
+		"application/json"
+	],
+	"definitions": {
+		"Friend": {
+			"description": "",
+			"properties": {
+				"seq": {
+					"type": "number",
+					"format": "double",
+					"description": "친구의 accountSeq "
+				},
+				"name": {
+					"type": "string",
+					"description": "친구의 이름 "
+				},
+				"picture": {
+					"type": "string",
+					"description": "친구의 사진URL 주소 "
+				},
+				"profession_code": {
+					"type": "string",
+					"description": "친구의 전문직종 코드값 "
+				},
+				"speciality_code": {
+					"type": "string",
+					"description": "친구의 전문분야 코드값(소분류) "
+				},
+				"is_favorite": {
+					"type": "boolean",
+					"description": "즐겨찾기 여부 ( 1 - 즐겨찾기 친구, 0 - 일반친구) "
+				},
+				"is_new": {
+					"type": "boolean",
+					"description": "신규친구 여부 ( 1 - 신규친구, 0 - 일반친구) "
+				}
+			},
+			"required": [
+				"seq",
+				"name",
+				"picture",
+				"profession_code",
+				"speciality_code",
+				"is_favorite",
+				"is_new"
+			],
+			"type": "object"
+		},
+		"Login": {
+			"description": "",
+			"properties": {
+				"access_token": {
+					"type": "string",
+					"description": "resource 접근을 위해 사용하는 access_token "
+				}
+			},
+			"required": [
+				"access_token"
+			],
+			"type": "object"
+		},
+		"RequestLogin": {
+			"description": "",
+			"properties": {
+				"platform": {
+					"type": "string",
+					"description": "플랫폼 종류 "
+				},
+				"code": {
+					"type": "string",
+					"description": "플랫폼에서 제공한 사용자 식별 코드 "
+				},
+				"id": {
+					"type": "string",
+					"description": "자체 플랫폼(TG) 에 로그인 할 때 사용할 ID "
+				},
+				"password": {
+					"type": "string",
+					"description": "자체 플랫폼(TG) 에 로그인 할 때 사용할 PASSWORD "
+				}
+			},
+			"required": [
+				"platform"
+			],
+			"type": "object"
+		},
+		"Message": {
+			"description": "",
+			"properties": {
+				"seq": {
+					"type": "number",
+					"format": "double",
+					"description": "메세지 sequence "
+				},
+				"sender_name": {
+					"type": "string",
+					"description": "메세지를 보낸 유저이름 "
+				},
+				"sender_account_seq": {
+					"type": "number",
+					"format": "double",
+					"description": "메세지를 보낸 유저의 accountSeq "
+				},
+				"sender_company": {
+					"type": "string",
+					"description": "메세지를 보낸 유저의 소속 "
+				},
+				"sender_picture": {
+					"type": "string",
+					"description": "메세지를 보낸 유저의 사진 "
+				},
+				"sender_profession_code": {
+					"type": "string",
+					"description": "메세지를 보낸 유저의 전문직종 코드 "
+				},
+				"message": {
+					"type": "string",
+					"description": "메세지 내용 "
+				},
+				"received_timestamp": {
+					"type": "string",
+					"description": "메세지를 받은 date-time( UTC+0시 기준 ) "
+				},
+				"is_new": {
+					"type": "boolean",
+					"description": "메세지 확인/미확인 여부. 미확인 일시 1 "
+				},
+				"is_last": {
+					"type": "boolean",
+					"description": "마지막 메세지 여부. 마지막 메세지 일시 1 "
+				}
+			},
+			"required": [
+				"seq",
+				"sender_name",
+				"sender_account_seq",
+				"sender_company",
+				"sender_picture",
+				"sender_profession_code",
+				"message",
+				"received_timestamp",
+				"is_new",
+				"is_last"
+			],
+			"type": "object"
+		},
+		"UserInfoPicture": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": ""
+				},
+				"intro": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"required": [
+				"id",
+				"intro"
+			],
+			"type": "object"
+		},
+		"ResponseUserInfo": {
+			"description": "",
+			"properties": {
+				"account_seq": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"profession_code": {
+					"type": "string",
+					"description": "전문직종 코드 "
+				},
+				"speciality_code": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "전문분야 코드 리스트 "
+				},
+				"company": {
+					"type": "string",
+					"description": ""
+				},
+				"phone": {
+					"type": "string",
+					"description": ""
+				},
+				"email": {
+					"type": "string",
+					"description": ""
+				},
+				"area": {
+					"type": "string",
+					"description": ""
+				},
+				"introduce": {
+					"type": "string",
+					"description": ""
+				},
+				"experience": {
+					"type": "string",
+					"description": ""
+				},
+				"picture": {
+					"$ref": "#/definitions/UserInfoPicture"
+				}
+			},
+			"required": [
+				"account_seq"
+			],
+			"type": "object"
+		},
+		"RequestUpdateUserInfo": {
+			"description": "",
+			"properties": {
+				"professionCode": {
+					"type": "string",
+					"description": "변경할 전문직종 코드 "
+				},
+				"specialityCode": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "변경할 전문분야 코드 "
+				},
+				"company": {
+					"type": "string",
+					"description": "변경할 소속회사 "
+				},
+				"phone": {
+					"type": "string",
+					"description": "변경할 휴대폰번호 "
+				},
+				"email": {
+					"type": "string",
+					"description": "변경할 이메일주소 "
+				},
+				"area": {
+					"type": "string",
+					"description": "변경할 활동지역 "
+				},
+				"introduce": {
+					"type": "string",
+					"description": "변경할 자기소개 "
+				},
+				"experience": {
+					"type": "string",
+					"description": "변경할 주요경력 "
+				}
+			},
+			"required": [],
+			"type": "object"
+		}
+	},
+	"info": {
+		"description": "프로젝트 TG 에서 사용하는 서버 API 문서",
+		"license": {
+			"name": "mit"
+		},
+		"title": "Project-TG API (Development)",
+		"version": "0.0.1"
+	},
+	"paths": {
+		"/friend/{accountSeq}": {
+			"get": {
+				"operationId": "FriendGetFriends",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Friend"
+							}
+						}
+					}
+				},
+				"description": "친구 리스트 얻어오기",
+				"tags": [
+					"Friend"
+				],
+				"parameters": [
+					{
+						"description": "친구목록을 얻어올 사용자의 accountSeq",
+						"in": "path",
+						"name": "accountSeq",
+						"required": true,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "특정 전문직종을 보유한 친구 리스트를 얻기 위해 입력하는 전문직종 코드",
+						"in": "query",
+						"name": "professionCode",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/login": {
+			"post": {
+				"operationId": "LoginLogin",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/Login"
+						}
+					}
+				},
+				"description": "로그인 하기",
+				"tags": [
+					"Account"
+				],
+				"parameters": [
+					{
+						"description": "로그인 시 필요한 데이터",
+						"in": "body",
+						"name": "requestLogin",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/RequestLogin"
+						}
+					}
+				]
+			}
+		},
+		"/message/{accountSeq}": {
+			"get": {
+				"operationId": "MessageGetMessages",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Message"
+							}
+						}
+					}
+				},
+				"description": "사용자 메세지목록 얻어오기",
+				"tags": [
+					"Message"
+				],
+				"parameters": [
+					{
+						"description": "메세지 목록을 얻어올 유저의 accountSeq",
+						"in": "path",
+						"name": "accountSeq",
+						"required": true,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "",
+						"in": "query",
+						"name": "lastSeq",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					}
+				]
+			}
+		},
+		"/message/{accountSeq}/{messageSeq}": {
+			"get": {
+				"operationId": "MessageGetMessage",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/Message"
+						}
+					}
+				},
+				"description": "사용자 메세지 얻어오기",
+				"tags": [
+					"Message"
+				],
+				"parameters": [
+					{
+						"description": "",
+						"in": "path",
+						"name": "accountSeq",
+						"required": true,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "",
+						"in": "path",
+						"name": "messageSeq",
+						"required": true,
+						"type": "number",
+						"format": "double"
+					}
+				]
+			}
+		},
+		"/userinfo/{accountSeq}": {
+			"get": {
+				"operationId": "UserInfoGetUserInfo",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/ResponseUserInfo"
+						}
+					}
+				},
+				"description": "사용자 정보 얻어오기",
+				"tags": [
+					"UserInfo"
+				],
+				"parameters": [
+					{
+						"description": "얻어올 사용자의 accountSeq",
+						"in": "path",
+						"name": "accountSeq",
+						"required": true,
+						"type": "number",
+						"format": "double"
+					}
+				]
+			},
+			"put": {
+				"operationId": "UserInfoUpdateUserInfo",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/ResponseUserInfo"
+						}
+					}
+				},
+				"description": "사용자 정보 수정하기\r\n\r\nBody Parameter에 수정하고 싶은 항목들만 입력한다.\r\n\r\n응답은 수정된 항목들만 준다.",
+				"tags": [
+					"UserInfo"
+				],
+				"parameters": [
+					{
+						"description": "얻어올 사용자의 accountSeq",
+						"in": "path",
+						"name": "accountSeq",
+						"required": true,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "수정할 데이터",
+						"in": "body",
+						"name": "requestUpdateUserInfo",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/RequestUpdateUserInfo"
+						}
+					}
+				]
+			}
+		},
+		"/userinfo/picture/{accountSeq}": {
+			"put": {
+				"operationId": "UserInfoUpdateUserPicture",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/ResponseUserInfo"
+						}
+					}
+				},
+				"description": "사용자 사진 수정하기\r\n\r\nContent-Type: multipart/form-data 방식으로 파일을 업로드 해야한다.\r\n\r\nform-key 는 'file' 을 사용한다.\r\n\r\n응답은 수정된 사진URL 을 준다.( 그외 항목은 생략됨 )",
+				"tags": [
+					"UserInfo"
+				],
+				"parameters": [
+					{
+						"description": "사진을 수정할 사용자의 accountSeq",
+						"in": "path",
+						"name": "accountSeq",
+						"required": true,
+						"type": "number",
+						"format": "double"
+					}
+				]
+			}
+		}
+	},
+	"produces": [
+		"application/json"
+	],
+	"swagger": "2.0",
+	"securityDefinitions": {
+		"api_key": {
+			"type": "apiKey",
+			"name": "access_token",
+			"in": "header"
+		}
+	},
+	"host": "ec2-52-78-186-252.ap-northeast-2.compute.amazonaws.com:8080",
+	"schemes": [
+		"http",
+		"https"
+	]
+}

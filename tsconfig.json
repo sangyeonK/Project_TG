@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "charset": " UTF-8",
+        "module": "commonjs",
+        "target": "es2016",
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "outDir": "./app",
+        "experimentalDecorators": true
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    "files": [
+        "src/index.ts"
+    ]
+}

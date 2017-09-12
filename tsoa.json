@@ -1,0 +1,28 @@
+{
+    "swagger": {
+        "outputDirectory": "./dist",
+        "entryFile": "./src/index.ts",
+        "host": "ec2-52-78-186-252.ap-northeast-2.compute.amazonaws.com:8080",
+        "basePath": "/api",
+        "name": "Project-TG API (Development)",
+        "description": "프로젝트 TG 에서 사용하는 서버 API 문서",
+        "securityDefinitions": {
+            "api_key": {
+                "type": "apiKey",
+                "name": "access_token",
+                "in": "header"
+            }
+        },
+        "spec": {
+            "schemes": ["http","https"],
+            "consumes": ["application/x-www-form-urlencoded", "application/json"]
+        }
+    },
+    "routes": {
+        "basePath": "/api",
+        "entryFile": "./src/index.ts",
+        "routesDir": "./src",
+        "middleware": "express",
+        "authenticationModule": "./src/authentication.ts"
+    }
+}

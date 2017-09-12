@@ -1,0 +1,15 @@
+database:
+  connectionLimit: 5
+  host: 127.0.0.1
+  port: 3306
+  user: tg
+  password: 1q2w3e
+  database: tg
+auth:
+  sessionBaseKey: baseKey
+aws:
+  accessKeyId: AKIAJ3PNYDGQEIXWRKRA
+  secretAccessKey: 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
+  region: ap-northeast-2
+  picture_s3_bucket: tg-asset
+  picture_cloudfront_domain: http://d1fxe3en8hcq5n.cloudfront.net
