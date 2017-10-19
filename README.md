@@ -14,7 +14,12 @@ $ npm build
 $ npm start
 ```
 
-##### 참고 명령어
+### 연관된 서비스
+정상적인 동작을 위해서는 nginx( 외부 http 요청 핸들링 ), mysql( RDBMS ) 서비스 가 필요하다.
+해당 서비스들은 docker 를 통해 관리되고 있다.
+`./conf.docker` 폴더 참고
+
+### 참고 명령어
 
 **DB테이블 생성쿼리 덤프하기(HOST: 127.0.0.1, DATABASE NAME: tg )**
 ```bash
